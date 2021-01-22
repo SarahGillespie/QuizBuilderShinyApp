@@ -8,8 +8,11 @@
 #
 
 library(shiny)
+library(tidyverse)
 
 # Define UI for application that draws a histogram
+# the aesthetic aspects of the page: the boxes, what draws the text, 
+# displays the images
 ui <- fluidPage(
 
     # Application title
@@ -30,7 +33,9 @@ ui <- fluidPage(
            plotOutput("distPlot")
         )
     )
-)
+)# end of UI
+
+# SG: define functions here, but call them in server.
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
@@ -43,7 +48,18 @@ server <- function(input, output) {
         # draw the histogram with the specified number of bins
         hist(x, breaks = bins, col = 'darkgray', border = 'white')
     })
-}
+    
+    # SG: here we will bring in each question and its answer choices.
+    # SG: the user clicks a letter or we have a text box to type the answer.
+    # SG: check the user input against the answer key.
+    
+    # SG: functions are common in R. 
+    # SG: i.e. server is a whole function. 
+    # SG: Other functions should be defined outside server, but called here.
+    # SG: I have not seen classes or OOP used but apparently they can be.
+    
+    
+} # end of server function
 
 # Run the application 
 shinyApp(ui = ui, server = server)
