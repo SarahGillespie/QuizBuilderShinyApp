@@ -10,6 +10,9 @@
 library(shiny)
 library(tidyverse)
 
+#bring in the data
+
+
 # Define UI for application that draws a histogram
 # the aesthetic aspects of the page: the boxes, what draws the text, 
 # displays the images
