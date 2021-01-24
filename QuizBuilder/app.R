@@ -9,9 +9,18 @@
 
 library(shiny)
 library(tidyverse)
+library(RCurl)
 
-#bring in the data
+# SG: Get the data. You shouldn't have to change this file path for it to work.
 
+vocabulary_questions_df <- read.table("~/GitHub/QuizBuilderShinyApp/vocabulary_questions.txt",
+                                      fill = TRUE, header = FALSE, quote = "", sep = "\t")
+
+math_questions_df <- read.table("~/Github/QuizBuilderShinyApp/math_questions.txt",
+                      fill = TRUE, header = FALSE, quote = "", sep = "\t")
+
+verbal_reasoning_questions_df <- read.table("~/Github/QuizBuilderShinyApp/verbal_reasoning_questions.txt",
+                      fill = TRUE, header = FALSE, quote = "", sep = "\t")
 
 # Define UI for application that draws a histogram
 # the aesthetic aspects of the page: the boxes, what draws the text, 
@@ -33,7 +42,27 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("distPlot")
+           plotOutput("distPlot"),
+           
+           # SG: our text should be displayed below the histogram.
+           mainPanel(
+              
+               # SG: TASK: need a button to pick which quiz you want to do
+               # SG: TASK: need a button to decide how many questions you want to do
+               # SG: TASK: randomize the question order
+               # SG: TASK: add the score counter.
+               
+               math_questions_df$V1[3],# SG: calls the cell that is in the 3rd row of the first column in the math df
+               # SG: gotta figure out how to do a new line
+               math_questions_df$V2[3],
+               math_questions_df$V3[3],
+               math_questions_df$V4[3],
+               math_questions_df$V5[3],
+               math_questions_df$V6[3]
+               
+               ) 
+           
+           
         )
     )
 )# end of UI
