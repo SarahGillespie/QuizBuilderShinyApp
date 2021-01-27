@@ -12,71 +12,76 @@ library(tidyverse)
 library(RCurl)
 
 # SG: Get the data. You shouldn't have to change this file path for it to work.
-
+# JG: column names for better reading and na strings to ignore when printing questions
 vocabulary_questions_df <- read.table("~/GitHub/QuizBuilderShinyApp/vocabulary_questions.txt",
-                                      fill = TRUE, header = FALSE, quote = "", sep = "\t")
+                                      fill = TRUE, header = FALSE, quote = "", sep = "\t", 
+                                      col.names=c("source","answer_choices", "correct_answer", "instruction", "question","a", "b","c","d", "e", "f", "g", "h", "i" ),
+                                      na.strings = c("EMPTY", "source ??"))
 
 math_questions_df <- read.table("~/Github/QuizBuilderShinyApp/math_questions.txt",
-                      fill = TRUE, header = FALSE, quote = "", sep = "\t")
+                      fill = TRUE, header = FALSE, quote = "", sep = "\t",
+                      col.names=c("source","answer_choices", "correct_answer", "instruction", "question","a", "b","c","d", "e", "f", "g", "h", "i" ),
+                      na.strings = c("EMPTY", "source ??"))
 
 verbal_reasoning_questions_df <- read.table("~/Github/QuizBuilderShinyApp/verbal_reasoning_questions.txt",
-                      fill = TRUE, header = FALSE, quote = "", sep = "\t")
+                      fill = TRUE, header = FALSE, quote = "", sep = "\t",
+                      col.names=c("source","answer_choices", "correct_answer", "instruction", "question","a", "b","c","d", "e", "f", "g", "h", "i" ),
+                      na.strings = c("EMPTY", "source ??"))
 
-# Define UI for application that draws a histogram
+# Define UI for application
 # the aesthetic aspects of the page: the boxes, what draws the text, 
 # displays the images
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("GRE Practice Quizzes"),
 
-    # Sidebar with a slider input for number of bins 
+    # sidebar
     sidebarLayout(
         sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+            # HTML formatting
+            tags$div(class="header", checked=NA, 
+                     tags$h2("Instructions"),
+                     tags$p("Select the quiz you want to take from the menu below, then select the number of questions to answer.
+                            This is a multiple choice quiz to practice the GRE General Test. Type the letter of your answer choice (or multiple if applicable),
+                            No tests in this program are timed. You will receive immediate feedback if your choice is correct or not.
+                            You may want scratch paper and a pencil for the math quiz."),
+                     tags$h4("Credits"),
+                     tags$p("Practice GRE Math, Vocabulary, and Verbal Reasoning Quizzes."),
+                     tags$p("Authors: Julia Griner and Sarah Gillespie"),
+                     tags$p("Disclaimer: Questions are taken from various online sources, as credited on the README. This program is purely for educational purposes.")
+            ) # end div
         ), # end sidebar panel
 
-        # Show a plot of the generated histogram distribution
-        mainPanel(
-           plotOutput("distPlot"), # SG: delete later
-           
-           # SG: prints a dropdown menu for a pre-loaded cars dataset.
-           # SG: TASK: swap the preloaded variables/states to be the quiz options for our app
-           # SG: docs all about the dropdown menu: https://shiny.rstudio.com/reference/shiny/latest/selectInput.html
-           # SG: this is only part 1 of the dropdown menu, UI part.
-           #     the part that then responds to the user selection is in the server.
-
-           selectInput("state", "Choose a state:",
-                       list(`East Coast` = list("NY", "NJ", "CT"),
-                            `West Coast` = list("WA", "OR", "CA"),
-                            `Midwest` = list("MN", "WI", "IA"))
-           ),
-           textOutput("result"),
-           
-           # SG: our text should be displayed below the histogram.
-           mainPanel(
-              
-               # SG: TASK: need a button to pick which quiz you want to do
-               # SG: TASK: need a button to decide how many questions you want to do
-               # SG: TASK: randomize the question order
-               # SG: TASK: add the score counter.
-               
-               # prints a question
-               math_questions_df$V1[3],# SG: calls the cell that is in the 3rd row of the first column in the math df
-               # SG: gotta figure out how to do a new line
-               math_questions_df$V2[3],
-               math_questions_df$V3[3],
-               math_questions_df$V4[3],
-               math_questions_df$V5[3],
-               math_questions_df$V6[3]
-               
-               )
-           
-           
+     mainPanel(
+         
+         # SG: TASK: randomize the question order
+         # SG: TASK: add the score counter.
+         selectInput("quiz", "Select a quiz",
+                    c("Math", "Vocabulary", "Verbal Reasoning")
+         ),
+         textOutput("result"),
+         
+         # choose number of questions to answer
+         numericInput("num_questions",
+                      "Number of questions",
+                      1, min = 1, max = input$quiz.nrows),
+         
+         # loads correct quiz with correct number of questions      
+         actionButton("start", "Start Quiz"),
+         # either using conditionalPanel or insertUI, adds panel of the quiz
+         
+         # # prints a question
+         # # SG: gotta figure out how to do a new line
+         math_questions_df$instruction[3],
+         math_questions_df$question[3],
+         math_questions_df$a[3],
+         math_questions_df$b[3],
+         math_questions_df$c[3],
+         math_questions_df$d[3],
+         math_questions_df$e[3]
+         
+        
         ) # end main panel
     )
 )# end of UI
@@ -87,21 +92,24 @@ ui <- fluidPage(
 # SG: the server is like the calculator part that tells the app how to respond
 #     to user imput.
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
     
-    # SG: here is part 2 of the select input option, the server part. 
-    # SG: TASK: make the app print words stating the specific test that was chosen.
+    # SG: here is part 2 of the select input option, the server part.
     
     output$result <- renderText({
-        paste("You chose", input$state)
+        paste("You chose", input$quiz)
+    })
+    
+    loadQuiz <- observeEvent(input$start, {
+        # load in specific quiz here thru insertUI
+        
+    })
+    
+    # SWITCH CASE FOR DROP MENU
+    quizInput <- reactive({
+        switch(input$quiz,
+               "Math" = math_quiz,
+               "Vocabulary" = vocab_quiz,
+               "Verbal Reasoning" = verbal_quiz)
     })
     
     # SG: here we will bring in the user's answer choice response action.
