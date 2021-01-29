@@ -1,3 +1,4 @@
+source	answer_choices	correct_letter	general_instructions	question	choice_a	choice_b	choice_c	choice_d	choice_e	choice_f	choice_g	choice_h	choice_i
 From https://www.princetonreview.com/grad-school-advice/gre-math-practice#numeric_gre	0	5000	Solve.	"Each month, Renaldo earns a commission of 10.5% of his total sales for the month, plus a salary of $2,500. If Renaldo earns $3,025 in a certain month, what were his total sales?"	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
 From https://www.princetonreview.com/grad-school-advice/gre-math-practice#numeric_gre	0	20	Solve.	"At a recent dog show, there were 5 finalists. One of the finalists was awarded ""Best in Show"" and another finalist was awarded ""Honorable Mention."" In how many different ways could the two awards be given out?"	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
 source ??	5	A	Solve.	If 5x + 32 = 4 - 2x what is the value of x?	-4	-3	4	7	12	EMPTY	EMPTY	EMPTY	EMPTY

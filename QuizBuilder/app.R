@@ -19,14 +19,10 @@ vocabulary_questions_df <- read.table("~/GitHub/QuizBuilderShinyApp/vocabulary_q
                                       na.strings = c("EMPTY", "source ??"))
 
 math_questions_df <- read.table("~/Github/QuizBuilderShinyApp/math_questions.txt",
-                      fill = TRUE, header = FALSE, quote = "", sep = "\t",
-                      col.names=c("source","answer_choices", "correct_answer", "instruction", "question","a", "b","c","d", "e", "f", "g", "h", "i" ),
-                      na.strings = c("EMPTY", "source ??"))
+                      fill = TRUE, header = FALSE, quote = "", sep = "\t")
 
 verbal_reasoning_questions_df <- read.table("~/Github/QuizBuilderShinyApp/verbal_reasoning_questions.txt",
-                      fill = TRUE, header = FALSE, quote = "", sep = "\t",
-                      col.names=c("source","answer_choices", "correct_answer", "instruction", "question","a", "b","c","d", "e", "f", "g", "h", "i" ),
-                      na.strings = c("EMPTY", "source ??"))
+                      fill = TRUE, header = FALSE, quote = "", sep = "\t")
 
 # Define UI for application
 # the aesthetic aspects of the page: the boxes, what draws the text, 
@@ -65,7 +61,7 @@ ui <- fluidPage(
          # choose number of questions to answer
          numericInput("num_questions",
                       "Number of questions",
-                      1, min = 1, max = input$quiz.nrows),
+                      1, min = 1, max = 100), # fix to be max items in the csv file
          
          # loads correct quiz with correct number of questions      
          actionButton("start", "Start Quiz"),
