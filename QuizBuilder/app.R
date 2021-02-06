@@ -63,22 +63,12 @@ ui <- fluidPage(
                       "Number of questions",
                       1, min = 1, max = 100), # fix to be max items in the csv file
          
-         # loads correct quiz with correct number of questions      
-         actionButton("start", "Start Quiz"),
-         # either using conditionalPanel or insertUI, adds panel of the quiz
+         textInput("entered_answer", "Enter the answer to display below:"),
+         textOutput("text")
          
-         # # prints a question
-         # # SG: gotta figure out how to do a new line
-         math_questions_df$instruction[3],
-         math_questions_df$question[3],
-         math_questions_df$a[3],
-         math_questions_df$b[3],
-         math_questions_df$c[3],
-         math_questions_df$d[3],
-         math_questions_df$e[3]
-         
-        
         ) # end main panel
+     
+     
     )
 )# end of UI
 
@@ -86,19 +76,14 @@ ui <- fluidPage(
 #     but call them in server.
 
 # SG: the server is like the calculator part that tells the app how to respond
-#     to user imput.
-server <- function(input, output) {
-    
-    # SG: here is part 2 of the select input option, the server part.
+#     to user input.
+server <- function(input, output, session) {
+
     
     output$result <- renderText({
         paste("You chose", input$quiz)
     })
     
-    loadQuiz <- observeEvent(input$start, {
-        # load in specific quiz here thru insertUI
-        
-    })
     
     # SWITCH CASE FOR DROP MENU
     quizInput <- reactive({
@@ -108,15 +93,8 @@ server <- function(input, output) {
                "Verbal Reasoning" = verbal_quiz)
     })
     
-    # SG: here we will bring in the user's answer choice response action.
-    # SG: the user clicks a letter or we have a text box to type the answer.
-    # SG: check the user input against the answer key.
-    
-    # SG: functions are common in R. 
-    # SG: i.e. server is a whole function. 
-    # SG: Other functions should be defined outside server, but called here.
-    # SG: I have not seen classes or OOP used but apparently they can be.
-    
+    output$text <- renderText({ input$entered_answer })
+    output$verb <- renderText({ input$entered_answer })
     
 } # end of server function
 
