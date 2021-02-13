@@ -1,0 +1,11 @@
+source	answer_choices	correct_letter	general_instructions	question	choice_a	choice_b	choice_c	choice_d	choice_e	choice_f	choice_g	choice_h	choice_i
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	C	Choose the matching word.	ecosystem	el abono	el cultivo	el ecosistema	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	C	Choose the matching word.	compost	la estiércol	las plantas muertas	la composta	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	B	Choose the matching word.	kitchen scraps	el humus	los desperdicios de cocina	los minerales	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	A	Choose the matching word.	environment	el medio ambiente	el musgo de turba	el ecosistema	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	C	Choose the matching word.	food	poner	colocar	la comida	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	A	Choose the matching word.	fungus	el hongo	el fungicida	el fertilizante	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	A	Choose the matching word.	harvest (noun)	la cosecha	el heno	abonar	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	B	Choose the matching word.	harvest (verb)	la maceta	cosechar	reciclar	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	C	Choose the matching word.	organic (adj.)	la lluvia	la tierra	orgánico -ca	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
+From https://anrcatalog.ucanr.edu/pdf/8423.pdf	3	B	Choose the matching word.	seed (noun)	la planta del semillero	la semilla	triturar	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY	EMPTY
