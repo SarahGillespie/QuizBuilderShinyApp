@@ -1,11 +1,8 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+################################################################################
+# Creators:
+# Date: Spring 2021
+# Most up-to-date version located at
+################################################################################
 
 library(shiny)
 library(shinydashboard)
@@ -14,11 +11,15 @@ library(shinyWidgets)
 library(tidyverse)
 library(RCurl)
 
-# SG: Get the data. You shouldn't have to change this file path for it to work.
-# JG: column names for better reading and na strings to ignore when printing questions
+# Get the data -----------------------------------------------------------------
+# Retrieves the txt file data from the local file.
 vocabulary_questions_df <- read.table("~/GitHub/QuizBuilderShinyApp/vocabulary_questions.txt",
                                       fill = TRUE, header = FALSE, quote = "", sep = "\t", 
-                                      col.names=c("source","answer_choices", "correct_answer", "instruction", "question","a", "b","c","d", "e", "f", "g", "h", "i" ),
+                                      col.names=c("source","answer_choices", 
+                                                  "correct_answer", "instruction",
+                                                  "question",
+                                                  "a", "b","c","d", "e", "f",
+                                                  "g", "h", "i" ),
                                       na.strings = c("EMPTY", "source ??"))
 
 math_questions_df <- read.table("~/Github/QuizBuilderShinyApp/math_questions.txt",
@@ -27,9 +28,14 @@ math_questions_df <- read.table("~/Github/QuizBuilderShinyApp/math_questions.txt
 verbal_reasoning_questions_df <- read.table("~/Github/QuizBuilderShinyApp/verbal_reasoning_questions.txt",
                       fill = TRUE, header = FALSE, quote = "", sep = "\t")
 
+spanish_nature_questions_df <- read.table("~/Github/QuizBuilderShinyApp/spanish_nature.txt",
+                                            fill = TRUE, header = FALSE, quote = "", sep = "\t")
+
+# Define functions -------------------------------------------------------------
+
+
+# UI ---------------------------------------------------------------------------
 # Define UI for application
-# the aesthetic aspects of the page: the boxes, what draws the text, 
-# displays the images
 ui <- fluidPage(
 
     # Application title
@@ -57,7 +63,7 @@ ui <- fluidPage(
          # SG: TASK: randomize the question order
          # SG: TASK: add the score counter.
          selectInput("quiz", "Select a quiz",
-                    c("Math", "Vocabulary", "Verbal Reasoning")
+                    c("Math", "Vocabulary", "Verbal Reasoning", "Spanish Nature")
          ),
          textOutput("result"),
          
@@ -75,11 +81,7 @@ ui <- fluidPage(
     )
 )# end of UI
 
-# SG: we can define functions here (outside of both UI and server),
-#     but call them in server.
-
-# SG: the server is like the calculator part that tells the app how to respond
-#     to user input.
+# Sever ------------------------------------------------------------------------
 server <- function(input, output, session) {
 
     
@@ -88,12 +90,13 @@ server <- function(input, output, session) {
     })
     
     
-    # SWITCH CASE FOR DROP MENU
+    # drop down option for the quiz type
     quizInput <- reactive({
         switch(input$quiz,
                "Math" = math_quiz,
                "Vocabulary" = vocab_quiz,
-               "Verbal Reasoning" = verbal_quiz)
+               "Verbal Reasoning" = verbal_quiz,
+               "Spanish Nature" = spanish_nature)
     })
     
     output$text <- renderText({ input$entered_answer })
